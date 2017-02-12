@@ -19,7 +19,7 @@ EU     260            1300           57            7           (??6Frame)
 #include <string.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include "hidapi.h" // http://www.signal11.us/oss/hidapi/
+#include <hidapi/hidapi.h> // http://www.signal11.us/oss/hidapi/
 
 // Setting RUN_DRY to 1 will only emulate opening a device and nothing get's send
 #define RUN_DRY 0
