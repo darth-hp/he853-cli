@@ -20,8 +20,10 @@ he853-static: main.o he853.o hidapi-libusb.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -l:$libusb-1.0.a -ludev -lpthread
 
 install: $(BUILT)
+	install -m 755 $+ /usr/local/bin
 
 uninstall: $(BUILT)
+	$(RM) /usr/local/bin/$+
 
 clean:
 	$(RM) *.o he853 he853-static
