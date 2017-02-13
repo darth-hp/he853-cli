@@ -1,5 +1,5 @@
 he853
 he853.o
-hid-raw.o
+hidapi-libusb.o
 main.o
 
