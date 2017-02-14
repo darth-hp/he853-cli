@@ -7,7 +7,6 @@ INSTALL = install
 RM      = rm -f
 MKDIR   = mkdir -p
 
-CC = gcc
 COMPILER_OPTIONS = -Wall -Os -s
 CFLAGS           = $(COMPILER_OPTIONS)
 CXXFLAGS         = $(COMPILER_OPTIONS)
@@ -32,7 +31,7 @@ installdirs:
 	test -d $(BIN_DIR) || $(MKDIR) $(BIN_DIR)
 
 install: $(PROGRAM_NAME) installdirs
-	$(INSTALL_PROGRAM)	fdupes   $(BIN_DIR)/$(PROGRAM_NAME)
+	$(INSTALL_PROGRAM) $(PROGRAM_NAME) $(BIN_DIR)/$(PROGRAM_NAME)
 
 clean:
 	$(RM) *.o $(PROGRAM_NAME) $(PROGRAM_NAME)-static
