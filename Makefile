@@ -1,4 +1,6 @@
+# The only thing you may want to change
 PREFIX = /usr/local
+
 PROGRAM_NAME = he853
 
 BIN_DIR = $(PREFIX)/bin
@@ -25,7 +27,7 @@ he853: main.o $(PROGRAM_NAME).o hidapi-libusb.o
 # I couldn't find udev includes for Synology to build it static
 # Let's keep it as reference for working platforms
 he853-static: main.o $(PROGRAM_NAME).o hidapi-libusb.o
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -l:$libusb-1.0.a -ludev -lpthread
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -l:libusb-1.0.a -ludev -lpthread
 
 installdirs:
 	test -d $(BIN_DIR) || $(MKDIR) $(BIN_DIR)
