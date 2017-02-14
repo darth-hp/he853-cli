@@ -1,14 +1,20 @@
-PROGRAM_NAME = he853
 PREFIX = /usr/local
+PROGRAM_NAME = he853
+
 BIN_DIR = $(PREFIX)/bin
-CC = gcc
+
 INSTALL = install
-INSTALL_PROGRAM = $(INSTALL) -m 0755
+RM      = rm -f
+MKDIR   = mkdir -p
 
-# optimize size and strip symbol tables
-CXXFLAGS = -Os -s
+CC = gcc
+COMPILER_OPTIONS = -Wall -Os -s
+CFLAGS           = $(COMPILER_OPTIONS)
+CXXFLAGS         = $(COMPILER_OPTIONS)
 
-# Try our best to get the include path
+INSTALL_PROGRAM = $(INSTALL) -c -m 0755
+INSTALL_DATA    = $(INSTALL) -c -m 0644
+
 _IU=/include/libusb-1.0
 _IC=$(shell pkg-config --silence-errors --cflags libusb-1.0 || [ -d /usr${_IU} ] && echo -I/usr${_IU} || echo -I/opt${_IU})
 
@@ -17,18 +23,19 @@ all: $(PROGRAM_NAME)
 hidapi-libusb.o: hidapi-libusb.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) ${_IC} -c $< -o $@
 
-he853: main.o he853.o hidapi-libusb.o
+he853: main.o $(PROGRAM_NAME).o hidapi-libusb.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -lusb-1.0 -lpthread
 
-# I couldn't find udev includes for Synology - let's keep it as reference
-he853-static: main.o he853.o hidapi-libusb.o
+# I couldn't find udev includes for Synology to build it static
+# Let's keep it as reference for working platforms
+he853-static: main.o $(PROGRAM_NAME).o hidapi-libusb.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -l:$libusb-1.0.a -ludev -lpthread
 
-install: $(PROGRAM_NAME)
-	$(INSTALL_PROGRAM) $+ $(BIN_DIR)/$(PROGRAM_NAME)
+installdirs:
+	test -d $(BIN_DIR) || $(MKDIR) $(BIN_DIR)
 
-uninstall: $(PROGRAM_NAME)
-	$(RM) /usr/local/bin/$+
+install: $(PROGRAM_NAME) installdirs
+	$(INSTALL_PROGRAM)	fdupes   $(BIN_DIR)/$(PROGRAM_NAME)
 
 clean:
-	$(RM) *.o he853 he853-static
+	$(RM) *.o $(PROGRAM_NAME) $(PROGRAM_NAME)-static

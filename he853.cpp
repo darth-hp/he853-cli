@@ -38,7 +38,7 @@ HE853Controller::~HE853Controller()
 
 bool HE853Controller::sendOutputReports(uint8_t* buf, uint16_t nReports)
 {
-		int rv;
+		int rv = 0;
 
 #if DEBUG == 1
 		DEBUG_PRINTF(("\nsendToStick:\n"));
