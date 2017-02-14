@@ -15,13 +15,10 @@ CXXFLAGS         = $(COMPILER_OPTIONS)
 INSTALL_PROGRAM = $(INSTALL) -c -m 0755
 INSTALL_DATA    = $(INSTALL) -c -m 0644
 
-_IU=/include/libusb-1.0
-_IC=$(shell pkg-config --silence-errors --cflags libusb-1.0 || [ -d /usr${_IU} ] && echo -I/usr${_IU} || echo -I/opt${_IU})
-
 all: $(PROGRAM_NAME)
 
 hidapi-libusb.o: hidapi-libusb.c
-	$(CC) $(CPPFLAGS) $(CFLAGS) ${_IC} -c $< -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(shell pkg-config --cflags libusb-1.0) -c $< -o $@
 
 he853: main.o $(PROGRAM_NAME).o hidapi-libusb.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -lusb-1.0 -lpthread
