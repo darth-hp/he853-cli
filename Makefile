@@ -14,6 +14,9 @@ CXXFLAGS         = $(COMPILER_OPTIONS)
 INSTALL_PROGRAM = $(INSTALL) -c -m 0755
 INSTALL_DATA    = $(INSTALL) -c -m 0644
 
+# Some systems require udev, some not
+LIBUDEV = $(shell pkg-config --libs libudev)
+
 all: $(PROGRAM_NAME) he853-static
 
 hidapi-libusb.o: hidapi-libusb.c
@@ -23,7 +26,7 @@ he853: main.o $(PROGRAM_NAME).o hidapi-libusb.o
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -lusb-1.0 -lpthread
 
 he853-static: main.o $(PROGRAM_NAME).o hidapi-libusb.o
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -Wl,-Bstatic $(shell pkg-config --libs --static libusb-1.0) -Wl,-Bdynamic -ludev -lpthread
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) $+ -o $@ -Wl,-Bstatic $(shell pkg-config --libs libusb-1.0) -Wl,-Bdynamic $(LIBUDEV) -lpthread
 
 installdirs:
 	test -d $(BIN_DIR) || $(MKDIR) $(BIN_DIR)
