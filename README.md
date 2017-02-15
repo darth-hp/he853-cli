@@ -1,10 +1,9 @@
 # About
 
-The he853-remote project provides a library and CLI programm for the
-[homeeasy he853 433.92MHz USB RF remote control sender](http://www.elro.eu/en/products/category/home_automation/home_easy/zenders2/pc_afstandsbediening_usb_dongle).
-The sender is used for toggling RF controlled power sockets.
+This project provides a library and CLI programm for the [HomeEasy now Smartwares HE853 USB RF remote control sender](http://service.smartwares.eu/en-us/product/10.036.05/he853-he-comp-usb-netwerk-dongle.aspx).
+The sender is used for toggling 433MHz RF controlled devices.
 
-VID:PID 04d9:1357 Holtek Semiconductor, Inc.
+USB stick VID:PID identity and name: 04d9:1357 Holtek Semiconductor, Inc.
 
 The library was extracted from [roseasy](http://ros.org/wiki/roseasy)
 which is a part of the [ROS (Robot Operating System)](http://www.ros.org/wiki/) project.
@@ -17,6 +16,10 @@ the [HE853 Control Project](http://he853control.sourceforge.net/).
 You can build the CLI programm by simply running
 
   `make`
+
+  To install the binary and the udev rule file to provide access for the users group run
+
+  `sudo make install`
 
 The default protocol is `EU` - you can adjust this in the `main.cpp`
 or pass it in over the command line - see parameters below.
@@ -34,8 +37,7 @@ Usage: ./he853 [<DeviceID> <Command> [<Protocol>]]
 
 NOTE: You have to have proper access rigths (root) to the USB stick to use it
 but the program will tell you if it can't properly access the stick.
-Either you can workaround this using `sudo` or by providing a UDEV rules file.
-There is a sample rule available as `80-he853.rules`.
+Either you can workaround this using `sudo` or by installing the udev rules file.
 Good documentation about udev usage and debug is [here](https://wiki.archlinux.org/index.php/udev)
 
 The command is either a *0* for *OFF* or anything > 0 for *ON*.
@@ -48,20 +50,21 @@ After that you can use the deviceId *2001* for toggling the power socket.
 
 ### Requirements
 
-* libusb development headers (debian: *libusb-1.0-0-dev*)
+* libusb-1.0 development headers
+* udev development headers sometimes required for static builds, sometimes not :)
 
 ### Compile Notes
 
-`he853.h` allows setting of RUN_DRY and DEBUG
+  `he853.h` allows setting of RUN_DRY and DEBUG
 
 ### PHP Example
 
-`<?php exec("/opt/bin/he853 2001 1"); ?>`
+  `<?php exec("/opt/bin/he853 2001 1"); ?>`
 
 ### Known Issues
 
 * doesn't compile on OSX
-* NAS: compiling under Optware-ng works out of the box after installing
+* Compiling under Optware-ng works out of the box after installing
 all required dependencies, for Entware-ng you need to install
 [include files](https://github.com/Entware-ng/Entware-ng/wiki/Using-gcc-(native-compilation))
 manually but they recommend to crosscompile.
