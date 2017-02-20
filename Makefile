@@ -6,7 +6,7 @@ INSTALL = install
 RM      = rm -f
 MKDIR   = mkdir -p
 
-COMPILER_OPTIONS = -Wall -Os -s
+COMPILER_OPTIONS = -Wall -Os -s -lrt
 CFLAGS           := $(COMPILER_OPTIONS)
 CXXFLAGS         := $(COMPILER_OPTIONS)
 
