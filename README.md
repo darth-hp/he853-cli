@@ -6,7 +6,7 @@ The sender is used for toggling 433MHz (433.92MHz) RF controlled devices.
 USB stick VID:PID identity and name: 04d9:1357 Holtek Semiconductor, Inc.
 
 The library was extracted in 2012 from [roseasy](http://ros.org/wiki/roseasy)
-which is a part of the [ROS (Robot Operating System)](http://www.ros.org/wiki/) project. The code is longer available.
+which is a part of the [ROS (Robot Operating System)](http://www.ros.org/wiki/) project. The code is no longer available.
 
 Another project that provides a C# Windows SDK for the dongle is
 the [HE853 Control Project](http://he853control.sourceforge.net/).
