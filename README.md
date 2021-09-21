@@ -64,6 +64,10 @@ But it's fairly easy - take group (A-P = 0-15), multiply by 16 and add devices n
 ### PHP Example
 
   `<?php exec("/opt/bin/he853 2001 1"); ?>`
+  
+### SynoCommunity
+
+The CLI command is available for Synology NAS via [SynoCommunity](https://github.com/SynoCommunity/spksrc/blob/master/cross/he853/Makefile)
 
 ### Known Issues
 
